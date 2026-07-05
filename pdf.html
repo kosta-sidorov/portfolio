@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Kanstantsin Sidarovich: портфоліо PDF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --bg: #0b0d10;
+    --glass: rgba(255,255,255,.04);
+    --line: rgba(255,255,255,.10);
+    --line-strong: rgba(255,255,255,.18);
+    --text: #e9ebee;
+    --text-2: #a2aab4;
+    --text-3: #6f7781;
+    --accent: #3ddc84;
+    --accent-dim: rgba(61,220,132,.12);
+    --accent-line: rgba(61,220,132,.4);
+    --font-sans: "Manrope", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--bg); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--font-sans); color: var(--text); font-size: 10.5px; line-height: 1.55; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  .page {
+    width: 210mm; height: 296.5mm;
+    page-break-after: always;
+    position: relative; overflow: hidden;
+    padding: 13mm 14mm 16mm;
+    background:
+      radial-gradient(300px 560px at 14% 30%, rgba(255,255,255,.10), transparent 62%),
+      radial-gradient(260px 500px at 82% 16%, rgba(255,255,255,.08), transparent 64%),
+      radial-gradient(360px 620px at 60% 92%, rgba(255,255,255,.07), transparent 60%),
+      radial-gradient(420px 380px at 30% 100%, rgba(61,220,132,.05), transparent 58%),
+      linear-gradient(180deg, #101318 0%, #0b0d10 45%, #0e1116 100%);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* page chrome */
+  .ph {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 8px; margin-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ph .n { font-weight: 800; font-size: 10px; letter-spacing: .04em; }
+  .ph .n span { color: var(--accent); }
+  .ph .t { font-size: 9px; color: var(--text-3); font-family: var(--font-mono); }
+  .pf {
+    position: absolute; left: 14mm; right: 14mm; bottom: 9mm;
+    display: flex; justify-content: space-between;
+    font-size: 8.5px; color: var(--text-3); font-family: var(--font-mono);
+    border-top: 1px solid var(--line); padding-top: 7px;
+  }
+  .pf a { color: var(--text-3); text-decoration: none; }
+
+  /* ---------- COVER ---------- */
+  .cover { display: flex; flex-direction: column; }
+  .cover-top { margin-top: 16mm; }
+  .cover .role { font-size: 12px; color: var(--accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+  .cover h1 { font-size: 44px; line-height: 1.04; letter-spacing: -.03em; font-weight: 800; }
+  .cover .tagline { margin-top: 16px; font-size: 14px; color: var(--text-2); max-width: 66%; }
+  .contact-chips { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+  .chip {
+    border: 1px solid var(--line-strong); border-radius: 999px;
+    padding: 8px 16px; font-size: 11px; font-weight: 600;
+    background: var(--glass); color: var(--text);
+  }
+  .chip b { color: var(--accent); font-weight: 700; margin-right: 6px; }
+
+  .cover-stats {
+    margin-top: 15mm;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .cs {
+    border: 1px solid var(--line); border-radius: 14px;
+    background: var(--glass); padding: 18px 20px;
+  }
+  .cs .v { font-family: var(--font-mono); font-size: 27px; font-weight: 700; letter-spacing: -.02em; }
+  .cs .v b { color: var(--accent); font-weight: 700; }
+  .cs .l { margin-top: 4px; font-size: 10.5px; color: var(--text-2); }
+
+  .cover-meta { margin-top: 12mm; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .cm2 { border-top: 2px solid var(--accent-line); padding-top: 10px; }
+  .cm2 .k { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+  .cm2 .w { font-size: 11.5px; font-weight: 600; color: var(--text); line-height: 1.5; }
+
+  /* ---------- SECTION LABEL ---------- */
+  .sec-label { font-size: 17px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 4px; }
+  .sec-sub { font-size: 10px; color: var(--text-2); margin-bottom: 14px; }
+
+  /* ---------- CASE ---------- */
+  .case {
+    border: 1px solid var(--line); border-radius: 14px;
+    background: var(--glass);
+    padding: 16px 18px; margin-bottom: 14px;
+  }
+  .case-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .case-head h3 { font-size: 15px; font-weight: 800; }
+  .case-head .niche { font-size: 9.5px; color: var(--text-2); margin-top: 1px; }
+  .case-head .period { font-size: 8.5px; color: var(--text-3); font-family: var(--font-mono); margin-top: 2px; }
+  .case-kpis { display: flex; gap: 18px; text-align: right; }
+  .ck .v { font-family: var(--font-mono); font-size: 13.5px; font-weight: 700; }
+  .ck .v.acc { color: var(--accent); }
+  .ck .l { font-size: 8px; color: var(--text-3); }
+
+  .case-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .cc h4 { font-size: 8px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+  .cc ul { list-style: none; }
+  .cc li { font-size: 9.3px; color: var(--text-2); padding: 3px 0 3px 12px; position: relative; line-height: 1.45; }
+  .cc li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 1.5px; background: var(--accent); }
+  .cc li strong { color: var(--text); font-weight: 700; }
+
+  .case-chart { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+  .case-chart svg { width: 62mm; height: auto; flex-shrink: 0; }
+  .case-chart .cap { font-size: 8.5px; color: var(--text-3); }
+
+  /* ---------- LEADGEN GRID ---------- */
+  .lg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .lg-grid .case { margin-bottom: 0; }
+  .lg-nums { display: flex; gap: 16px; margin: 10px 0 12px; }
+  .lg-nums .v { font-family: var(--font-mono); font-size: 15px; font-weight: 700; }
+  .lg-nums .v.acc { color: var(--accent); }
+  .lg-nums .l { font-size: 8px; color: var(--text-3); }
+  .lg-grid .cc li { font-size: 9px; }
+
+  /* ---------- APPROACH ---------- */
+  .approach { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 6px; }
+  .apx { border-top: 2px solid var(--accent-line); padding-top: 10px; }
+  .apx .n { font-family: var(--font-mono); font-size: 10px; color: var(--accent); margin-bottom: 5px; }
+  .apx h4 { font-size: 11.5px; font-weight: 800; margin-bottom: 4px; }
+  .apx p { font-size: 9.3px; color: var(--text-2); }
+
+  /* ---------- FINAL CTA ---------- */
+  .final {
+    margin-top: 14mm; border: 1px solid var(--accent-line); border-radius: 16px;
+    background: var(--accent-dim); padding: 22px 24px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .final h3 { font-size: 16px; font-weight: 800; letter-spacing: -.01em; }
+  .final p { font-size: 10px; color: var(--text-2); margin-top: 4px; max-width: 92mm; }
+  .final .fc { text-align: right; }
+  .final .fc .row { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text); margin-top: 3px; }
+  .final .fc .row b { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1: COVER ================= -->
+<div class="page cover">
+  <div class="ph">
+    <div class="n">KANSTANTSIN SIDAROVICH <span>/</span> ПОРТФОЛІО</div>
+    <div class="t">Meta Ads / Google Ads / TikTok Ads</div>
+  </div>
+
+  <div class="cover-top">
+    <div class="role">Media Buyer / Performance Marketing</div>
+    <h1>Перетворюю рекламний бюджет на прибуток</h1>
+    <p class="tagline">Із 2022 року веду проєкти у складі агенційних команд і не тільки: виводжу акаунти на прибуток і масштабую те, що працює.</p>
+    <div class="contact-chips">
+      <div class="chip"><b>Тел.</b>+380 97 183 0779</div>
+      <div class="chip"><b>TG</b>@carlm_ont</div>
+      <div class="chip"><b>Web</b>kosta-sidorov.github.io/portfolio</div>
+    </div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cs"><div class="v num">$<b>700</b>k+</div><div class="l">бюджету під управлінням за 4 роки</div></div>
+    <div class="cs"><div class="v num"><b>10</b>+</div><div class="l">проєктів у 5 країнах</div></div>
+    <div class="cs"><div class="v num"><b>88 000</b>+</div><div class="l">лідів в освітніх і товарних нішах</div></div>
+    <div class="cs"><div class="v num">2.2<span style="color:var(--text-3)">-</span><b>4.8</b></div><div class="l">ROAS у sales-проєктах</div></div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="cm2"><div class="k">Гео проєктів</div><div class="w">Україна, США, Канада, Німеччина, Польща</div></div>
+    <div class="cm2"><div class="k">Ніші</div><div class="w">E-commerce, освітні продукти, лідогенерація</div></div>
+    <div class="cm2"><div class="k">Формат</div><div class="w">Агенційні команди та приватні проєкти. Пікові бюджети до $36k/міс</div></div>
+  </div>
+
+  <div class="pf"><span>kosta-sidorov.github.io/portfolio</span><span>стор. 1 / 5</span></div>
+</div>
+
+<!-- ================= PAGE 2: SALES 1 ================= -->
+<div class="page">
+  <div class="ph">
+    <div class="n">KANSTANTSIN SIDAROVICH <span>/</span> ПОРТФОЛІО</div>
+    <div class="t">Продажі та ROAS · 1 з 2</div>
+  </div>
+
+  <div class="sec-label">Продажі та ROAS</div>
+  <div class="sec-sub">Проєкти, де головним KPI був прибуток. Усі цифри взяті з рекламних кабінетів за вказані періоди роботи.</div>
+
+  <div class="case">
+    <div class="case-head">
+      <div>
+        <h3>YAHMO</h3>
+        <div class="niche">Одяг DTC. Німеччина, Австрія, Швейцарія, ЄС, UK</div>
+        <div class="period">січень 2026 - червень 2026</div>
+      </div>
+      <div class="case-kpis">
+        <div class="ck"><div class="v acc">4.8</div><div class="l">ROAS за пів року</div></div>
+        <div class="ck"><div class="v">$150k</div><div class="l">бюджет</div></div>
+        <div class="ck"><div class="v">$719k</div><div class="l">виручка</div></div>
+      </div>
+    </div>
+    <div class="case-cols">
+      <div class="cc"><h4>Задачі</h4><ul>
+        <li>Підняти ROAS після просадки 2025 року (<strong>~2.7</strong>) без втрати обсягу</li>
+        <li>Утримати масштаб $25-36k на місяць</li>
+        <li>Структурувати акаунт за ринками: DACH, ЄС, UK</li>
+      </ul></div>
+      <div class="cc"><h4>Що було зроблено</h4><ul>
+        <li>Регіональні <strong>Advantage+ Shopping</strong> кампанії під кожен ринок</li>
+        <li>Окремі кампанії під February Sale і Mid-Season Sale</li>
+        <li>Ретаргетинг по каталогу, щотижневий перерозподіл бюджету</li>
+      </ul></div>
+      <div class="cc"><h4>Результати</h4><ul>
+        <li>ROAS <strong>~4.8</strong> проти ~2.7 у 2025, пік <strong>7.52</strong> у лютому</li>
+        <li>Розпродаж DACH: ROAS <strong>10.65</strong></li>
+        <li>$719k виручки на $150k витрат, масштаб збережено</li>
+      </ul></div>
+    </div>
+    <div class="case-chart">
+      <svg viewBox="0 0 520 120">
+        <line x1="0" y1="104" x2="520" y2="104" stroke="rgba(255,255,255,.12)"/>
+        <rect x="30"  y="70" width="64" height="34" rx="4" fill="rgba(255,255,255,.16)"/>
+        <rect x="150" y="44" width="64" height="60" rx="4" fill="rgba(61,220,132,.45)"/>
+        <rect x="270" y="10" width="64" height="94" rx="4" fill="#3ddc84"/>
+        <rect x="390" y="44" width="64" height="60" rx="4" fill="rgba(61,220,132,.45)"/>
+        <text x="62"  y="62" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono" font-size="13">2.7</text>
+        <text x="182" y="36" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">4.5</text>
+        <text x="302" y="2"  text-anchor="middle" dominant-baseline="hanging" fill="#3ddc84" font-family="JetBrains Mono" font-size="13" font-weight="700">7.5</text>
+        <text x="422" y="36" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">4.8</text>
+        <text x="62"  y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">2025 рік</text>
+        <text x="182" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">січень 26</text>
+        <text x="302" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">лютий 26</text>
+        <text x="422" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">І півріччя 26</text>
+      </svg>
+      <div class="cap">Помісячний ROAS: до і після перебудови структури акаунту</div>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="case-head">
+      <div>
+        <h3>ProHealth Longevity</h3>
+        <div class="niche">Добавки для здоровʼя та довголіття. США</div>
+        <div class="period">червень 2023 - серпень 2024</div>
+      </div>
+      <div class="case-kpis">
+        <div class="ck"><div class="v acc">2.2</div><div class="l">ROAS за період</div></div>
+        <div class="ck"><div class="v">$232k</div><div class="l">бюджет</div></div>
+        <div class="ck"><div class="v">$515k</div><div class="l">виручка</div></div>
+      </div>
+    </div>
+    <div class="case-cols">
+      <div class="cc"><h4>Задачі</h4><ul>
+        <li>Канал продажів у Meta <strong>з нуля</strong>: без статистики й аудиторій</li>
+        <li>Швидкий вихід у прибуток</li>
+        <li>Структура, що витримає масштабування</li>
+      </ul></div>
+      <div class="cc"><h4>Що було зроблено</h4><ul>
+        <li>Prospecting за інтересами, <strong>Lookalike активних покупців</strong> як ядро</li>
+        <li>Advantage+ Shopping і ретаргетинг на перегляди та кошики</li>
+        <li>Освітні креативи: користь формули, соціальний доказ</li>
+      </ul></div>
+      <div class="cc"><h4>Результати</h4><ul>
+        <li>Прибутковість за <strong>~3 місяці</strong>, пік ROAS <strong>8.0</strong></li>
+        <li>$515k виручки на $232k, масштаб до $58k/міс</li>
+        <li>Ретаргетинг Advantage+ до ROAS <strong>16.1</strong></li>
+      </ul></div>
+    </div>
+    <div class="case-chart">
+      <svg viewBox="0 0 520 120">
+        <line x1="0" y1="104" x2="520" y2="104" stroke="rgba(255,255,255,.12)"/>
+        <rect x="30"  y="90" width="64" height="14" rx="4" fill="rgba(255,255,255,.16)"/>
+        <rect x="150" y="83" width="64" height="21" rx="4" fill="rgba(61,220,132,.35)"/>
+        <rect x="270" y="70" width="64" height="34" rx="4" fill="rgba(61,220,132,.55)"/>
+        <rect x="390" y="10" width="64" height="94" rx="4" fill="#3ddc84"/>
+        <text x="62"  y="82" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono" font-size="13">1.3</text>
+        <text x="182" y="75" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">1.9</text>
+        <text x="302" y="62" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">3.0</text>
+        <text x="422" y="2"  text-anchor="middle" dominant-baseline="hanging" fill="#3ddc84" font-family="JetBrains Mono" font-size="13" font-weight="700">8.0</text>
+        <text x="62"  y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">серпень 23</text>
+        <text x="182" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">вересень 23</text>
+        <text x="302" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">жовтень 23</text>
+        <text x="422" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">листопад 23</text>
+      </svg>
+      <div class="cap">Вихід каналу в прибуток за перші місяці після запуску з нуля</div>
+    </div>
+  </div>
+
+  <div class="pf"><span>kosta-sidorov.github.io/portfolio</span><span>стор. 2 / 5</span></div>
+</div>
+
+<!-- ================= PAGE 3: SALES 2 ================= -->
+<div class="page">
+  <div class="ph">
+    <div class="n">KANSTANTSIN SIDAROVICH <span>/</span> ПОРТФОЛІО</div>
+    <div class="t">Продажі та ROAS · 2 з 2</div>
+  </div>
+
+  <div class="case">
+    <div class="case-head">
+      <div>
+        <h3>Westminster</h3>
+        <div class="niche">Дорогоцінні метали: злитки та монети. США, високий чек</div>
+        <div class="period">квітень 2026 - червень 2026</div>
+      </div>
+      <div class="case-kpis">
+        <div class="ck"><div class="v acc">0.16 &rarr; 5.0</div><div class="l">ROAS за 2 місяці</div></div>
+        <div class="ck"><div class="v">$3.1k</div><div class="l">бюджет</div></div>
+        <div class="ck"><div class="v">$13.6k</div><div class="l">виручка</div></div>
+      </div>
+    </div>
+    <div class="case-cols">
+      <div class="cc"><h4>Задачі</h4><ul>
+        <li>Вивести акаунт у плюс після <strong>~1.5 року</strong> збитків (ROAS 0.16)</li>
+        <li>Урахувати high-ticket: покупці довго порівнюють, спершу пишуть</li>
+        <li>Знайти робочу звʼязку швидко</li>
+      </ul></div>
+      <div class="cc"><h4>Що було зроблено</h4><ul>
+        <li><strong>Перезапустив</strong> рекламу замість реанімації старої структури</li>
+        <li>Розділив шляхи: окремо покупка, окремо заявки на дорогі позиції</li>
+        <li>Креативи на довіру та конкретику: конкретний злиток чи монета</li>
+      </ul></div>
+      <div class="cc"><h4>Результати</h4><ul>
+        <li>ROAS 0.16 &rarr; <strong>3.5</strong> &rarr; <strong>5.0</strong> за два місяці</li>
+        <li>Виручка на місяць: $100 &rarr; $4 200 &rarr; $9 400</li>
+        <li>Prospecting: ROAS <strong>5.11</strong>, плюс 25 high-ticket заявок</li>
+      </ul></div>
+    </div>
+    <div class="case-chart">
+      <svg viewBox="0 0 520 120">
+        <line x1="0" y1="104" x2="520" y2="104" stroke="rgba(255,255,255,.12)"/>
+        <rect x="60"  y="100" width="80" height="4"  rx="2" fill="rgba(255,255,255,.16)"/>
+        <rect x="220" y="42" width="80" height="62" rx="4" fill="rgba(61,220,132,.55)"/>
+        <rect x="380" y="10" width="80" height="94" rx="4" fill="#3ddc84"/>
+        <text x="100" y="92" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono" font-size="13">0.16</text>
+        <text x="260" y="34" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">3.5</text>
+        <text x="420" y="2"  text-anchor="middle" dominant-baseline="hanging" fill="#3ddc84" font-family="JetBrains Mono" font-size="13" font-weight="700">5.0</text>
+        <text x="100" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">квітень 26</text>
+        <text x="260" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">травень 26</text>
+        <text x="420" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">червень 26</text>
+      </svg>
+      <div class="cap">Розворот акаунту за два місяці роботи</div>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="case-head">
+      <div>
+        <h3>EVERKI</h3>
+        <div class="niche">Преміальні рюкзаки та сумки для техніки. США, Канада та інші ринки</div>
+        <div class="period">жовтень 2025 - червень 2026</div>
+      </div>
+      <div class="case-kpis">
+        <div class="ck"><div class="v acc">2.7</div><div class="l">ROAS sales-кампаній</div></div>
+        <div class="ck"><div class="v">$35.4k</div><div class="l">бюджет</div></div>
+        <div class="ck"><div class="v">$67.5k</div><div class="l">виручка</div></div>
+      </div>
+    </div>
+    <div class="case-cols">
+      <div class="cc"><h4>Задачі</h4><ul>
+        <li>Повернути продажі після ~6 місяців трафік-кампаній без покупок</li>
+        <li>Ростити виручку та замовлення місяць до місяця</li>
+        <li>Масштабувати бюджет без втрати рентабельності</li>
+      </ul></div>
+      <div class="cc"><h4>Що було зроблено</h4><ul>
+        <li>Перевів бюджет на <strong>оптимізацію під покупки</strong></li>
+        <li>Повна воронка: prospecting, трек тестів креативів, ретаргетинг</li>
+        <li>Робочі звʼязки в evergreen, слабкі вимикав швидко</li>
+      </ul></div>
+      <div class="cc"><h4>Результати</h4><ul>
+        <li>Виручка на місяць: <strong>~$5k &rarr; ~$11k</strong></li>
+        <li>Продажі: з ~9 до ~63 на місяць, разом ~320 замовлень</li>
+        <li>ROAS sales ~2.7, ретаргетинг до <strong>3.5</strong></li>
+      </ul></div>
+    </div>
+    <div class="case-chart">
+      <svg viewBox="0 0 520 120">
+        <line x1="0" y1="104" x2="520" y2="104" stroke="rgba(255,255,255,.12)"/>
+        <rect x="60"  y="66" width="80" height="38" rx="4" fill="rgba(255,255,255,.16)"/>
+        <rect x="220" y="38" width="80" height="66" rx="4" fill="rgba(61,220,132,.55)"/>
+        <rect x="380" y="10" width="80" height="94" rx="4" fill="#3ddc84"/>
+        <text x="100" y="58" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono" font-size="13">$5k</text>
+        <text x="260" y="30" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="13">$8k</text>
+        <text x="420" y="2"  text-anchor="middle" dominant-baseline="hanging" fill="#3ddc84" font-family="JetBrains Mono" font-size="13" font-weight="700">$11k</text>
+        <text x="100" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">жовтень 25</text>
+        <text x="260" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">І квартал 26</text>
+        <text x="420" y="118" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="11">червень 26</text>
+      </svg>
+      <div class="cap">Зростання місячної виручки за 9 місяців ведення акаунту</div>
+    </div>
+  </div>
+
+  <div class="pf"><span>kosta-sidorov.github.io/portfolio</span><span>стор. 3 / 5</span></div>
+</div>
+
+<!-- ================= PAGE 4: LEADGEN ================= -->
+<div class="page">
+  <div class="ph">
+    <div class="n">KANSTANTSIN SIDAROVICH <span>/</span> ПОРТФОЛІО</div>
+    <div class="t">Лідогенерація та трафік</div>
+  </div>
+
+  <div class="sec-label">Лідогенерація та трафік</div>
+  <div class="sec-sub">Довгострокові агенційні проєкти, де KPI був обсяг і вартість ліда або кліка. Кілька проєктів велися паралельно впродовж трьох років.</div>
+
+  <div class="lg-grid">
+    <div class="case">
+      <div class="case-head"><div>
+        <h3>Franch Education</h3>
+        <div class="niche">Курси зі штучного інтелекту. Україна</div>
+        <div class="period">серпень 2022 - вересень 2025</div>
+      </div></div>
+      <div class="lg-nums">
+        <div><div class="v acc">59 000</div><div class="l">лідів</div></div>
+        <div><div class="v">$2.69</div><div class="l">ціна ліда</div></div>
+        <div><div class="v">$160k</div><div class="l">бюджет</div></div>
+      </div>
+      <div class="cc"><ul>
+        <li>Два треки: прямі продажі курсів і реєстрації на вебінари</li>
+        <li>Ручна оптимізація ставок: CPM нижче на 20-30%</li>
+        <li>CPC $0.43, CTR ~1.9% на дистанції трьох років</li>
+      </ul></div>
+    </div>
+
+    <div class="case">
+      <div class="case-head"><div>
+        <h3>AVS</h3>
+        <div class="niche">Курси для бухгалтерів. Україна</div>
+        <div class="period">травень 2022 - серпень 2025</div>
+      </div></div>
+      <div class="lg-nums">
+        <div><div class="v acc">24 000+</div><div class="l">лідів</div></div>
+        <div><div class="v">$0.23</div><div class="l">CPC вебінарів</div></div>
+        <div><div class="v">$98k</div><div class="l">бюджет</div></div>
+      </div>
+      <div class="cc"><ul>
+        <li>Пряма реклама: 4 382 ліда на $17.2k бюджету</li>
+        <li>Вебінарний трек: 20 000+ реєстрацій на $80.5k</li>
+        <li>$15-20k прибутку клієнта за перші 3 місяці</li>
+      </ul></div>
+    </div>
+
+    <div class="case">
+      <div class="case-head"><div>
+        <h3>VGT-Agro</h3>
+        <div class="niche">Виробник добрив, вихід у роздріб. Україна</div>
+        <div class="period">травень 2022 - червень 2025</div>
+      </div></div>
+      <div class="lg-nums">
+        <div><div class="v acc">~5 000</div><div class="l">лідів</div></div>
+        <div><div class="v">$1.68</div><div class="l">ціна ліда</div></div>
+        <div><div class="v">15-20</div><div class="l">продажів/день</div></div>
+      </div>
+      <div class="cc"><ul>
+        <li>Офери на цінності замість знижок, лід-форми Facebook</li>
+        <li>Вартість ліда знижено вдвічі відносно старту</li>
+        <li>~$60-70k чистого прибутку клієнта за співпрацю</li>
+      </ul></div>
+    </div>
+
+    <div class="case">
+      <div class="case-head"><div>
+        <h3>Click.ua</h3>
+        <div class="niche">Магазин техніки, e-commerce. Україна</div>
+        <div class="period">травень 2022 - червень 2025</div>
+      </div></div>
+      <div class="lg-nums">
+        <div><div class="v acc">445 107</div><div class="l">кліків</div></div>
+        <div><div class="v">$0.04</div><div class="l">CPC</div></div>
+        <div><div class="v">$27.6k</div><div class="l">бюджет</div></div>
+      </div>
+      <div class="cc"><ul>
+        <li>Фокус на Stories та Reels як найдешевших форматах</li>
+        <li>Понад сотня A/B-тестів креативів: відео, банери, каруселі</li>
+        <li>CTR 2.16%, CPM $0.93, найкращі кампанії: CPC $0.02</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="pf"><span>kosta-sidorov.github.io/portfolio</span><span>стор. 4 / 5</span></div>
+</div>
+
+<!-- ================= PAGE 5: GOOGLE + APPROACH + CTA ================= -->
+<div class="page">
+  <div class="ph">
+    <div class="n">KANSTANTSIN SIDAROVICH <span>/</span> ПОРТФОЛІО</div>
+    <div class="t">Google Ads · Підхід · Контакти</div>
+  </div>
+
+  <div class="sec-label">Google Ads</div>
+  <div class="sec-sub">Окремий напрям роботи: Demand Gen кампанії для міжнародних продуктів.</div>
+
+  <div class="case">
+    <div class="case-head">
+      <div>
+        <h3>FinTech-продукт (NDA)</h3>
+        <div class="niche">Google Demand Gen, performance-кампанії. Tier 1 та Tier 2 гео</div>
+        <div class="period">грудень 2025 - травень 2026</div>
+      </div>
+      <div class="case-kpis">
+        <div class="ck"><div class="v acc">$300 &rarr; $2.5k</div><div class="l">денний бюджет</div></div>
+        <div class="ck"><div class="v">10+</div><div class="l">GEO у плюсі</div></div>
+      </div>
+    </div>
+    <div class="case-cols">
+      <div class="cc"><h4>Задачі</h4><ul>
+        <li>Масштабувати Demand Gen без втрати цільового CPA та ROI</li>
+        <li>Tier 1 (AU, JP, KR, SG, HK) та Tier 2 (BR, MX, CO, TR та інші)</li>
+      </ul></div>
+      <div class="cc"><h4>Що було зроблено</h4><ul>
+        <li>Звʼязки «креатив + преленд + лендінг», ТЗ для дизайнерів</li>
+        <li>Аналітика через Keitaro та MetaBase: CTR, CPA, конверсія</li>
+      </ul></div>
+      <div class="cc"><h4>Результати</h4><ul>
+        <li>Денний бюджет: <strong>$300 &rarr; $2 500</strong> з утриманням CPA/ROI</li>
+        <li>Прибуткові кампанії у <strong>понад 10 GEO</strong></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div style="margin-top:10mm">
+    <div class="sec-label">Як я працюю</div>
+    <div class="approach">
+      <div class="apx"><div class="n">01</div><h4>Аудит перед бюджетом</h4><p>Більшість збиткових акаунтів ламаються на структурі й цілях оптимізації, а не на креативах. Тому спершу розбір, потім гроші.</p></div>
+      <div class="apx"><div class="n">02</div><h4>Повна воронка</h4><p>Prospecting, тестування креативів і ретаргетинг живуть окремо. Кожен сегмент має власний KPI і власний бюджет.</p></div>
+      <div class="apx"><div class="n">03</div><h4>Масштаб без втрати ROAS</h4><p>Бюджет росте кроками, кожен крок звіряється з економікою. Слабкі звʼязки вимикаю швидко, робочі переношу в evergreen.</p></div>
+    </div>
+  </div>
+
+  <div class="final">
+    <div>
+      <h3>Потрібен сильний спеціаліст із релевантним досвідом?</h3>
+      <p>Розкажіть про свій проєкт: проведу аудит рекламного акаунту, дам рекомендації та покажу зони зростання, де я буду ефективним.</p>
+    </div>
+    <div class="fc">
+      <div class="row"><b>Тел.</b> +380 97 183 0779</div>
+      <div class="row"><b>TG</b> @carlm_ont</div>
+      <div class="row"><b>Web</b> kosta-sidorov.github.io/portfolio</div>
+    </div>
+  </div>
+
+  <div class="pf"><span>Усі цифри взяті з рекламних кабінетів за вказані періоди. Скриншоти доступні за запитом.</span><span>стор. 5 / 5</span></div>
+</div>
+
+</body>
+</html>
