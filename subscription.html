@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kanstantsin Sidarovich — Subscription-first Google Media Buying</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0d10; --glass: rgba(255,255,255,.04); --line: rgba(255,255,255,.10);
+    --line-strong: rgba(255,255,255,.18); --text: #e9ebee; --text-2: #a2aab4; --text-3: #6f7781;
+    --accent: #3ddc84; --accent-dim: rgba(61,220,132,.12); --accent-line: rgba(61,220,132,.4);
+    --font-sans: "Manrope", system-ui, sans-serif; --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: var(--font-sans); color: var(--text); font-size: 15px; line-height: 1.6;
+    background:
+      radial-gradient(600px 900px at 12% 10%, rgba(255,255,255,.07), transparent 60%),
+      radial-gradient(500px 800px at 88% 30%, rgba(255,255,255,.05), transparent 62%),
+      radial-gradient(700px 700px at 40% 100%, rgba(61,220,132,.05), transparent 58%),
+      linear-gradient(180deg, #101318 0%, #0b0d10 45%, #0e1116 100%);
+    background-attachment: fixed;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 22px; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  header { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  header .wrap { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  .logo { font-weight: 800; font-size: 14px; letter-spacing: .04em; }
+  .logo span { color: var(--accent); }
+  .hdr-note { font-size: 12px; color: var(--text-3); font-family: var(--font-mono); }
+
+  .hero { padding: 64px 0 36px; }
+  .role { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.08; letter-spacing: -.03em; font-weight: 800; }
+  h1 b { color: var(--accent); font-weight: 800; }
+  .tagline { margin-top: 18px; font-size: 16.5px; color: var(--text-2); max-width: 760px; }
+  .prepared { margin-top: 14px; font-size: 12.5px; color: var(--text-3); font-family: var(--font-mono); }
+  .chips { display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; }
+  .chip { border:1px solid var(--line-strong); border-radius:999px; padding:9px 18px; font-size:13px; font-weight:600; background:var(--glass); }
+  .chip b { color:var(--accent); font-weight:700; margin-right:7px; }
+  .chip a { color: var(--text); text-decoration: none; }
+
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin: 40px 0 0; }
+  .cs { border:1px solid var(--line); border-radius:14px; background:var(--glass); padding:18px 20px; }
+  .cs .v { font-family:var(--font-mono); font-size:26px; font-weight:700; letter-spacing:-.02em; }
+  .cs .v b { color:var(--accent); font-weight:700; }
+  .cs .l { margin-top:4px; font-size:12px; color:var(--text-2); line-height:1.45; }
+
+  section { padding: 44px 0 8px; }
+  .sec-label { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .sec-sub { margin-top: 6px; font-size: 14px; color: var(--text-2); max-width: 760px; }
+
+  .card { border:1px solid var(--line); border-radius:16px; background:var(--glass); padding:22px 24px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:22px; }
+  .card h3 { font-size:16px; font-weight:800; }
+  .card .meta { font-size:12px; color:var(--text-3); font-family:var(--font-mono); margin-top:2px; }
+  .kpis { display:flex; gap:22px; margin:12px 0 12px; flex-wrap:wrap; }
+  .kpi .v { font-family:var(--font-mono); font-size:19px; font-weight:700; }
+  .kpi .v.acc { color:var(--accent); }
+  .kpi .l { font-size:11px; color:var(--text-3); }
+  .card ul { list-style:none; }
+  .card li { font-size:13px; color:var(--text-2); padding:4px 0 4px 15px; position:relative; line-height:1.5; }
+  .card li::before { content:""; position:absolute; left:0; top:13px; width:7px; height:2px; background:var(--accent); }
+  .card li strong { color:var(--text); font-weight:700; }
+
+  .chain { display:flex; align-items:stretch; gap:8px; margin-top:22px; flex-wrap:wrap; }
+  .ch { flex:1 1 150px; border:1px solid var(--line); border-radius:12px; background:var(--glass); padding:14px 12px; text-align:center; }
+  .ch.acc { border-color:var(--accent-line); background:var(--accent-dim); }
+  .ch .v { font-family:var(--font-mono); font-size:16px; font-weight:700; }
+  .ch.acc .v { color:var(--accent); }
+  .ch .l { font-size:11px; color:var(--text-2); margin-top:4px; line-height:1.35; }
+  .arr { align-self:center; color:var(--accent); font-size:18px; font-weight:700; }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:10px; }
+  th { text-align:left; color:var(--text-3); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; padding:6px 8px; border-bottom:1px solid var(--line-strong); }
+  td { padding:8px; border-bottom:1px solid var(--line); color:var(--text-2); }
+  td.num, th.num { text-align:right; font-family:var(--font-mono); }
+  td b { color:var(--text); }
+  td .acc { color:var(--accent); font-weight:700; }
+
+  .final { margin:56px 0 0; border:1px solid var(--accent-line); border-radius:18px; background:var(--accent-dim); padding:30px 32px;
+           display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+  .final h3 { font-size:20px; font-weight:800; letter-spacing:-.01em; }
+  .final p { font-size:13.5px; color:var(--text-2); margin-top:6px; max-width:560px; }
+  .final .fc .row { font-family:var(--font-mono); font-size:14px; font-weight:700; margin-top:4px; white-space:nowrap; }
+  .final .fc .row b { color:var(--accent); }
+  .final .fc a { color: var(--text); text-decoration: none; }
+
+  footer { margin-top:56px; padding:26px 0 40px; border-top:1px solid var(--line); }
+  footer .wrap { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--text-3); font-family:var(--font-mono); }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns:1fr 1fr; }
+    .grid2, .grid3 { grid-template-columns:1fr; }
+    .chain { flex-direction:column; }
+    .arr { transform:rotate(90deg); align-self:center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">KANSTANTSIN SIDAROVICH <span>/</span> SUBSCRIPTION GOOGLE UA</div>
+    <div class="hdr-note">Meta Ads · Google Ads · cohort-first buying</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="role">Google Media Buyer — Subscription eCommerce</div>
+    <h1>I bid to <b>LTV and cohort payback</b>,<br>not to the first order</h1>
+    <p class="tagline">4+ years of performance buying across Google and Meta. Hands-on scaling of a recurring-billing subscription product on Google Demand Gen, agency-team work across the full e-commerce Google stack (PMax, Shopping, Search), and a supplements brand grown from zero — the three halves of a subscription media buyer.</p>
+    <div class="prepared">Prepared for the Google Media Buyer conversation with Paleovalley &amp; Wild Pastures · July 2026</div>
+    <div class="chips">
+      <div class="chip"><b>TG</b>@carlm_ont</div>
+      <div class="chip"><b>Phone</b>+380 97 183 0779</div>
+      <div class="chip"><b>Portfolio</b><a href="https://kosta-sidorov.github.io/portfolio/">kosta-sidorov.github.io/portfolio</a></div>
+    </div>
+
+    <div class="stats">
+      <div class="cs"><div class="v num">$<b>75</b>k/mo</div><div class="l">peak spend on a recurring-subscription product, scaled 8x hands-on</div></div>
+      <div class="cs"><div class="v num">D<b>30</b></div><div class="l">cohort payback discipline — the metric my accounts live by</div></div>
+      <div class="cs"><div class="v num">$<b>1.4</b>M+</div><div class="l">ad spend worked on across Meta (hands-on) and Google</div></div>
+      <div class="cs"><div class="v num"><b>PMax</b>+</div><div class="l">Search · Shopping · Demand Gen · Display — full e-com Google stack</div></div>
+    </div>
+  </div>
+
+  <!-- ============ CASE 1 ============ -->
+  <section>
+    <div class="sec-label">Flagship case: recurring subscription on Google</div>
+    <p class="sec-sub">FinTech subscription product (brand under NDA — mechanics and numbers open for interview discussion). Recurring monthly billing: $2 five-day trial → $49/month. Google Demand Gen as the core channel, web2web funnels. Nov 2025 — Apr 2026.</p>
+
+    <div class="chain">
+      <div class="ch"><div class="v num">$2 → $49/mo</div><div class="l">trial price → subscription price</div></div>
+      <div class="arr">→</div>
+      <div class="ch"><div class="v num">~2.5–3</div><div class="l">avg payments per subscriber</div></div>
+      <div class="arr">→</div>
+      <div class="ch"><div class="v num">~$125</div><div class="l">LTV per paying subscriber</div></div>
+      <div class="arr">→</div>
+      <div class="ch"><div class="v num">35–40%</div><div class="l">of LTV allowed as CAC → ~$44 / paying</div></div>
+      <div class="arr">→</div>
+      <div class="ch acc"><div class="v num">tCPA ~$20</div><div class="l">per trial · set per GEO in Google Ads</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Scaling gated by cohort payback</h3>
+        <div class="meta">$300/day → $2,500/day in six months · ~$230–250k total spend · 10+ GEOs</div>
+        <svg viewBox="0 0 520 150" style="width:100%; height:auto; margin-top:14px">
+          <line x1="30" y1="128" x2="510" y2="128" stroke="rgba(255,255,255,.14)"/>
+          <rect x="60"  y="113" width="62" height="15"  rx="3" fill="rgba(61,220,132,.30)"/>
+          <rect x="170" y="88"  width="62" height="40"  rx="3" fill="rgba(61,220,132,.45)"/>
+          <rect x="280" y="53"  width="62" height="75"  rx="3" fill="rgba(61,220,132,.65)"/>
+          <rect x="390" y="22"  width="62" height="106" rx="3" fill="#3ddc84"/>
+          <text x="91"  y="106" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono" font-size="12">$300</text>
+          <text x="201" y="81"  text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="12">$800</text>
+          <text x="311" y="46"  text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono" font-size="12">$1,500</text>
+          <text x="421" y="14"  text-anchor="middle" fill="#3ddc84" font-family="JetBrains Mono" font-size="12" font-weight="700">$2,500</text>
+          <text x="91"  y="143" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="10">launch</text>
+          <text x="201" y="143" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="10">step 2</text>
+          <text x="311" y="143" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="10">step 3</text>
+          <text x="421" y="143" text-anchor="middle" fill="#6f7781" font-family="Manrope" font-size="10">peak, month 6</text>
+        </svg>
+        <ul style="margin-top:10px">
+          <li>Each budget step approved only after previous cohorts confirmed <strong>day-30 payback</strong> — how target CPA/ROI held through an 8x increase</li>
+          <li>Day-0 ROAS ~0.1 treated as normal; MER stabilized at <strong>1.3 blended, 1.4–1.5 on mature Tier-1 GEOs</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Targets &amp; bidding</h3>
+        <div class="meta">trial-to-paid ~45% · refunds 5–7% · retention curve ~65% → 45% → 30%</div>
+        <table>
+          <tr><th>Segment</th><th class="num">CPA / trial</th><th class="num">Why</th></tr>
+          <tr><td><b>Tier-1</b> · AU, JP, KR, SG, HK</td><td class="num"><span class="acc">up to ~$25</span></td><td class="num">higher LTV, 3+ payments</td></tr>
+          <tr><td><b>Tier-2</b> · BR, MX, CO, TR +</td><td class="num"><span class="acc">$8–11</span></td><td class="num">lower LTV, faster churn</td></tr>
+          <tr><td><b>Blended</b> · 10+ GEOs</td><td class="num"><span class="acc">~$20</span></td><td class="num">→ ~$44 per paying sub</td></tr>
+        </table>
+        <ul style="margin-top:10px">
+          <li>Maximize Conversions for learning → <strong>tCPA per GEO</strong> at 30–50 conv/week; moves capped at ±15–20% weekly</li>
+          <li>Optimized to trial starts; paid subs and rebills fed back via <strong>offline conversion import</strong></li>
+          <li>View-through conversions <strong>excluded from decisions</strong>; kill/scale from weekly Metabase cohort tables (Keitaro click-level attribution underneath)</li>
+          <li>Cut GEOs with the account's <strong>best CPA</strong> when cohorts didn't rebill — cheap trials that never renew are the most expensive traffic</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE 2 ============ -->
+  <section>
+    <div class="sec-label">E-commerce Google Ads — the full stack</div>
+    <p class="sec-sub">Long-term DTC accounts I've worked on within agency teams — performance analysis, creative briefs, testing roadmaps — alongside personally running the same brands' Meta accounts. Lifetime figures through July 2026.</p>
+    <div class="grid3">
+      <div class="card">
+        <h3>Fashion DTC — DACH &amp; EU</h3>
+        <div class="meta">Jan 2023 — ongoing · EUR account</div>
+        <div class="kpis">
+          <div class="kpi"><div class="v acc">€559k</div><div class="l">spend, 3.5 yrs</div></div>
+          <div class="kpi"><div class="v">€3.7M</div><div class="l">tracked revenue</div></div>
+          <div class="kpi"><div class="v">~6.7</div><div class="l">blended ROAS</div></div>
+        </div>
+        <ul>
+          <li><strong>PMax at tROAS 400–500%</strong> with catalog &amp; product-line splits; flagship: €268k → €1.32M</li>
+          <li>Brand / generic / competitor Search (brand ROAS ~20), Shopping feeds, Demand Gen</li>
+          <li>Scaled ~€6k/mo → <strong>€22–27k/mo</strong> with ROAS held</li>
+          <li>Same brand's <strong>Meta I ran personally: ROAS 4.8, $719k revenue</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Lingerie DTC — Ukraine</h3>
+        <div class="meta">Nov 2023 — ongoing · UAH account</div>
+        <div class="kpis">
+          <div class="kpi"><div class="v acc">~$67k</div><div class="l">spend</div></div>
+          <div class="kpi"><div class="v">~10</div><div class="l">blended ROAS</div></div>
+          <div class="kpi"><div class="v">3x</div><div class="l">spend growth YoY</div></div>
+        </div>
+        <ul>
+          <li><strong>PMax feed-strategy splits</strong>: feed-only / no-feed / hybrid tested against each other</li>
+          <li>Explicit <strong>tROAS ladder 350–810%</strong> per category; tCPA and Max Conv for launches</li>
+          <li>Brand Search, DSA, competitor Search with impression-share bidding, Demand Gen remarketing</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>High-ticket retail — US</h3>
+        <div class="meta">precious metals · USD account</div>
+        <div class="kpis">
+          <div class="kpi"><div class="v acc">~$78k</div><div class="l">Google spend</div></div>
+          <div class="kpi"><div class="v">0.16→5.0</div><div class="l">Meta turnaround</div></div>
+        </div>
+        <ul>
+          <li>PMax + Search including <strong>call-only campaigns</strong> — high-ticket buyers call before they buy</li>
+          <li>Same client whose <strong>Meta account I personally rebuilt from ROAS 0.16 to 5.0</strong> in two months</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE 3 ============ -->
+  <section>
+    <div class="sec-label">Industry match: supplements, built from zero</div>
+    <div class="grid2">
+      <div class="card">
+        <h3>ProHealth Longevity — supplements (US)</h3>
+        <div class="meta">Jun 2023 — Aug 2024 · Meta Ads, hands-on</div>
+        <div class="kpis">
+          <div class="kpi"><div class="v acc">$515k</div><div class="l">revenue</div></div>
+          <div class="kpi"><div class="v">$232k</div><div class="l">spend</div></div>
+          <div class="kpi"><div class="v">2.2</div><div class="l">ROAS, peak 8.0</div></div>
+          <div class="kpi"><div class="v">$58k/mo</div><div class="l">peak scale</div></div>
+        </div>
+        <ul>
+          <li>Channel built <strong>from zero</strong> — no history, no audiences; profitable in ~3 months</li>
+          <li>High-margin consumable where <strong>repeat purchases carried the economics</strong> — customer value counted beyond the first order</li>
+          <li>Educational creative angles: formula benefits, social proof — the language of the supplements buyer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>How this maps to a box-subscription brand</h3>
+        <ul>
+          <li>Same backwards math: <strong>first-box AOV + reorder curve</strong> replace trial → rebill</li>
+          <li>Allowed CAC per offer type; bidding favors <strong>subscriber starts</strong> over one-time orders</li>
+          <li>Cohort dashboard by acquisition week: reorder retention, churn after shipment N, payback date</li>
+          <li>Weekly budget reallocation by cohort payback — never by front-end ROAS alone</li>
+          <li>Honest note: I haven't run a physical-box subscription yet — the LTV/cohort machinery transfers one-to-one; box-specific churn patterns and offer structures are what I'd ramp on fast</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div>
+      <h3>Let's walk through the numbers on a call</h3>
+      <p>Every figure on this page comes from real ad accounts. Screenshots and deeper breakdowns available on request; the NDA product's mechanics — open for interview discussion.</p>
+    </div>
+    <div class="fc">
+      <div class="row"><b>TG</b> @carlm_ont</div>
+      <div class="row"><b>Phone</b> +380 97 183 0779</div>
+      <div class="row"><b>Web</b> <a href="https://kosta-sidorov.github.io/portfolio/">kosta-sidorov.github.io/portfolio</a></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Kanstantsin Sidarovich · Google Media Buyer, subscription eCommerce</span>
+    <span>2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
