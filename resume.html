@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kanstantsin Sidarovich — Paid Acquisition / Mobile UA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0b0d10; --glass:rgba(255,255,255,.04); --line:rgba(255,255,255,.10);
+    --line-strong:rgba(255,255,255,.18); --text:#e9ebee; --text-2:#a2aab4; --text-3:#6f7781;
+    --accent:#3ddc84; --accent-dim:rgba(61,220,132,.12); --accent-line:rgba(61,220,132,.4);
+    --font-sans:"Manrope",system-ui,sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--font-sans); color:var(--text); font-size:15px; line-height:1.6;
+    background:
+      radial-gradient(600px 900px at 12% 8%, rgba(255,255,255,.07), transparent 60%),
+      radial-gradient(500px 800px at 88% 26%, rgba(255,255,255,.05), transparent 62%),
+      radial-gradient(700px 700px at 40% 100%, rgba(61,220,132,.05), transparent 58%),
+      linear-gradient(180deg,#101318 0%,#0b0d10 45%,#0e1116 100%);
+    background-attachment:fixed;
+  }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 22px; }
+  .num { font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+  header { padding:20px 0; border-bottom:1px solid var(--line); }
+  header .wrap { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  .logo { font-weight:800; font-size:14px; letter-spacing:.04em; }
+  .logo span { color:var(--accent); }
+  .hdr-note { font-size:12px; color:var(--text-3); font-family:var(--font-mono); }
+
+  .hero { padding:60px 0 30px; }
+  .role { font-size:13px; color:var(--accent); font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; }
+  h1 { font-size:clamp(32px,5.5vw,52px); line-height:1.05; letter-spacing:-.03em; font-weight:800; }
+  .tagline { margin-top:18px; font-size:16.5px; color:var(--text-2); max-width:760px; }
+  .tagline strong { color:var(--text); font-weight:700; }
+  .chips { display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; }
+  .chip { border:1px solid var(--line-strong); border-radius:999px; padding:9px 18px; font-size:13px; font-weight:600; background:var(--glass); }
+  .chip b { color:var(--accent); font-weight:700; margin-right:7px; }
+  .chip a { color:var(--text); text-decoration:none; }
+
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:40px 0 0; }
+  .cs { border:1px solid var(--line); border-radius:14px; background:var(--glass); padding:18px 20px; }
+  .cs .v { font-family:var(--font-mono); font-size:24px; font-weight:700; letter-spacing:-.02em; }
+  .cs .v b { color:var(--accent); font-weight:700; }
+  .cs .l { margin-top:4px; font-size:12px; color:var(--text-2); line-height:1.45; }
+
+  section { padding:44px 0 6px; }
+  .sec-label { font-size:23px; font-weight:800; letter-spacing:-.02em; }
+  .sec-sub { margin-top:6px; font-size:14px; color:var(--text-2); max-width:760px; margin-bottom:22px; }
+
+  .card { border:1px solid var(--line); border-radius:16px; background:var(--glass); padding:20px 24px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+  /* timeline */
+  .job { border:1px solid var(--line); border-radius:16px; background:var(--glass); padding:20px 24px; margin-bottom:14px; }
+  .job-head { display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:12px; }
+  .job-head h3 { font-size:17px; font-weight:800; }
+  .job-head h3 span { color:var(--text-2); font-weight:600; font-size:14px; display:block; margin-top:2px; }
+  .job-head .period { font-family:var(--font-mono); font-size:12.5px; color:var(--accent); white-space:nowrap; }
+  .job ul { list-style:none; }
+  .job li { font-size:13.5px; color:var(--text-2); padding:5px 0 5px 16px; position:relative; line-height:1.5; }
+  .job li::before { content:""; position:absolute; left:0; top:13px; width:7px; height:2px; background:var(--accent); }
+  .job li strong { color:var(--text); font-weight:700; }
+  .flag { display:inline-block; font-size:10.5px; font-family:var(--font-mono); color:var(--accent); border:1px solid var(--accent-line); border-radius:6px; padding:1px 7px; margin-left:8px; vertical-align:middle; }
+
+  .kb { border-top:2px solid var(--accent-line); padding-top:12px; }
+  .kb .k { font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; font-weight:700; }
+  .kb .w { font-size:13.5px; font-weight:600; color:var(--text); line-height:1.6; }
+  .kb .w strong { color:var(--accent); }
+  .kb .w em { font-style:normal; color:var(--text-2); font-weight:500; }
+
+  .final { margin:56px 0 0; border:1px solid var(--accent-line); border-radius:18px; background:var(--accent-dim); padding:30px 32px;
+           display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+  .final h3 { font-size:20px; font-weight:800; letter-spacing:-.01em; }
+  .final p { font-size:13.5px; color:var(--text-2); margin-top:6px; max-width:520px; }
+  .final .fc .row { font-family:var(--font-mono); font-size:14px; font-weight:700; margin-top:4px; white-space:nowrap; }
+  .final .fc .row b { color:var(--accent); }
+  .final .fc a { color:var(--text); text-decoration:none; }
+
+  footer { margin-top:56px; padding:26px 0 44px; border-top:1px solid var(--line); }
+  footer .wrap { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--text-3); font-family:var(--font-mono); }
+
+  @media (max-width:820px){ .stats,.grid2,.grid3 { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">KANSTANTSIN SIDAROVICH <span>/</span> RESUME</div>
+    <div class="hdr-note">Paid Acquisition · Mobile UA · Meta &amp; Google</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="role">Paid Acquisition — Subscription Mobile Apps</div>
+    <h1>I bid to <span style="color:var(--accent)">LTV and cohort payback</span>, not to installs</h1>
+    <p class="tagline">Media buyer with 4+ years across <strong>Meta, Google and TikTok</strong> and 3+ years of mobile-first user acquisition for subscription apps — multi-channel, hands-on, iOS and Android. I scaled a market-leading app to <strong>~$80k/month</strong> holding target CPA and D30 ROAS, with attribution in <strong>Singular</strong>. Founder of my own D2C brand, so I read an account like an owner.</p>
+    <div class="chips">
+      <div class="chip"><b>TG</b>@carlm_ont</div>
+      <div class="chip"><b>Phone</b>+380 97 183 0779</div>
+      <div class="chip"><b>Location</b>Kyiv · Remote</div>
+      <div class="chip"><b>PDF</b><a href="https://kosta-sidorov.github.io/portfolio/">portfolio &amp; cases</a></div>
+    </div>
+
+    <div class="stats">
+      <div class="cs"><div class="v num"><b>3</b>+ yrs</div><div class="l">mobile-first UA · iOS &amp; Android subscription apps</div></div>
+      <div class="cs"><div class="v num">$<b>1</b>M+</div><div class="l">multi-channel app spend on a single app (Genesis)</div></div>
+      <div class="cs"><div class="v num"><b>4</b> ch.</div><div class="l">Google App Campaigns · Apple Search Ads · Meta · TikTok</div></div>
+      <div class="cs"><div class="v num"><b>Singular</b></div><div class="l">MMP attribution · D30 ROAS &amp; cohort payback</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-label">Experience</div>
+    <div class="sec-sub">All figures come from real ad accounts. Full case studies and screenshots: kosta-sidorov.github.io/portfolio</div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>User Acquisition Manager <span>Genesis — PlantIn, subscription mobile app (iOS + Android)</span></h3>
+        <div class="period">2025 — 2026</div>
+      </div>
+      <ul>
+        <li>Owned multi-channel paid app UA for a market-leading subscription app (35M+ downloads): <strong>Google App Campaigns, Apple Search Ads, Meta and TikTok app-install</strong> — <strong>~$1M managed in a year, ~$80k/month at peak</strong></li>
+        <li>Scaled iOS + Android installs holding <strong>target CPA and D30 ROAS</strong>; cohorts to payback by ~day 45; blended CPI ~$2.5 (iOS ~$4 / Android ~$1.5), trial-to-paid ~38%</li>
+        <li>Attribution and measurement in <strong>Singular</strong> (installs + in-app events) with Firebase; ensured data integrity across channels and allocated budget from cohort/LTV insights</li>
+        <li>Structured tests on audiences, creative, bids and budgets; handled iOS ATT/SKAN via in-app signal and aggregated cohorts; partnered with the creative team on high-volume creative iteration</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>User Acquisition, Google <span>Glite — subscription app (iOS), independent senior buyer</span></h3>
+        <div class="period">2024 — 2025</div>
+      </div>
+      <ul>
+        <li>Owned Google UA end to end for a subscription app: native iOS App Campaigns (installs → trial → paywall → purchase) + web2app quiz funnels — <strong>~£180k through the program</strong>, solo with a creative team</li>
+        <li>Launched App Campaigns from zero to <strong>£15k/month in 3 months</strong> (CPI £1.8–3.7, 12+ GEOs); web2app funnel scaled 4x (£4.7k → £22.3k/mo) in 6+ languages</li>
+        <li>Large-dataset analysis in Google Sheets + Metabase; <strong>AI tools (Claude, ChatGPT)</strong> daily for creative briefing, competitor research and data work</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Google Performance Marketing Specialist <span>FinTech company (NDA), subscription — web2web</span></h3>
+        <div class="period">2023 — 2024</div>
+      </div>
+      <ul>
+        <li><strong>Fintech-adjacent, regulated space</strong>: scaled Google Demand Gen ($2 trial → $49/mo) from <strong>$300 to $2,500/day</strong>, steps gated by day-30 cohort payback; profitable in 10+ GEOs</li>
+        <li>Bidding derived backwards from LTV: tCPA per GEO tier; paid subs and rebills fed back via offline conversion import; view-through excluded; cohort tables in Keitaro + Metabase</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Media Buyer, Meta Ads <span>agencies &amp; independent client projects</span></h3>
+        <div class="period">2022 — present</div>
+      </div>
+      <ul>
+        <li><strong>$700k+ hands-on Meta spend</strong> across e-commerce, supplements, education and lead gen — from assistant (Click.digital) through agency buyer (AdTribe, One Group, leadgen.cc) to independent senior buyer</li>
+        <li>Sales results: DTC apparel to <strong>ROAS 4.8 at $719k revenue</strong>; high-ticket account rebuilt <strong>0.16 → 5.0</strong>; supplements channel from zero to $58k/month</li>
+        <li><strong>88,000+ leads</strong> total (incl. 59,000 at $2.69 CPL); 100+ creative A/B tests on one account; trained junior buyers from zero; TikTok Ads in parallel</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Google Ads, e-commerce <span>long-term agency-team projects</span></h3>
+        <div class="period">2023 — present</div>
+      </div>
+      <ul>
+        <li>Full-stack Google accounts within agency teams — performance analysis, creative briefs, testing roadmaps — alongside personally running the same brands' Meta accounts</li>
+        <li>Fashion DTC (DACH/EU): <strong>€559k spend, €3.7M tracked revenue, blended ROAS ~6.7</strong> — PMax at tROAS 400–500%, brand/competitor Search, Shopping feeds; lingerie DTC at ROAS ~10</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Founder / Media Buyer <span>VGT — own D2C brand (vgt-ukraine.com)</span></h3>
+        <div class="period">2022 — present</div>
+      </div>
+      <ul>
+        <li>Built the business from zero: product line, sales team, warehouse, website; entire funnel and all creatives (incl. video) produced in-house</li>
+        <li>Unit economics owned end to end: ~30% lead-to-sale, $100–200 AOV — <strong>$200k+ revenue on &lt;$10k ad spend</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Skills &amp; tools</div>
+    <div class="grid3" style="margin-top:22px">
+      <div class="kb"><div class="k">Mobile UA channels</div><div class="w"><strong>Google App Campaigns · Apple Search Ads · Meta · TikTok</strong> app-install <em>· iOS &amp; Android · web2app &amp; web2web funnels · Demand Gen, PMax, Search · tCPA/tROAS from LTV</em></div></div>
+      <div class="kb"><div class="k">Attribution &amp; analytics</div><div class="w"><strong>Singular (MMP)</strong> <em>· Firebase · SKAN/ATT · cohort &amp; LTV analytics · GA4 · Keitaro · Metabase · Google Sheets, large-dataset analysis · AI tools: Claude, ChatGPT daily</em></div></div>
+      <div class="kb"><div class="k">Creative &amp; team</div><div class="w">Creative strategy &amp; briefs <em>· hook–value–CTA scripting · UGC sourcing · Canva, Figma, CapCut · led designers, copywriters, editors, junior buyers</em></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Education &amp; languages</div>
+    <div class="grid3" style="margin-top:22px">
+      <div class="kb"><div class="k">Education</div><div class="w">Institute of International Relations, Kyiv <em>— International Relations &amp; International Business, 2022</em></div></div>
+      <div class="kb"><div class="k">Languages</div><div class="w">Ukrainian <em>— native</em> · English <em>— advanced (C1)</em> · Spanish <em>— intermediate</em> · German <em>— basic</em></div></div>
+      <div class="kb"><div class="k">Courses</div><div class="w">TikTok "Algorithm 4.0" <em>(2024)</em> · Lemon School — Targeted Advertising / PPC <em>(2023)</em></div></div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div>
+      <h3>Let's walk through the numbers on a call</h3>
+      <p>Every figure here comes from real ad accounts — screenshots and full case breakdowns available on request.</p>
+    </div>
+    <div class="fc">
+      <div class="row"><b>TG</b> @carlm_ont</div>
+      <div class="row"><b>Phone</b> +380 97 183 0779</div>
+      <div class="row"><b>Web</b> <a href="https://kosta-sidorov.github.io/portfolio/">kosta-sidorov.github.io/portfolio</a></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Kanstantsin Sidarovich · Paid Acquisition / Mobile UA</span>
+    <span>2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
