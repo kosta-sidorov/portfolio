@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanstantsin Sidarovich: User Acquisition for subscription apps</title>
+<meta name="description" content="Mobile user acquisition manager: Google App Campaigns, Apple Search Ads, Meta and TikTok. 5 years, up to $80k/month, subscription apps on iOS and Android, LTV-based bidding and cohort payback.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0d10;
+    --glass: rgba(255,255,255,.035);
+    --glass-2: rgba(255,255,255,.055);
+    --line: rgba(255,255,255,.09);
+    --line-strong: rgba(255,255,255,.16);
+    --text: #e9ebee;
+    --text-2: #a2aab4;
+    --text-3: #6f7781;
+    --accent: #3ddc84;
+    --accent-dim: rgba(61,220,132,.12);
+    --accent-line: rgba(61,220,132,.35);
+    --radius: 16px;
+    --font-sans: "Manrope", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  .bgfx {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(380px 720px at 16% 38%, rgba(255,255,255,.14), transparent 62%),
+      radial-gradient(320px 640px at 74% 24%, rgba(255,255,255,.11), transparent 64%),
+      radial-gradient(460px 780px at 52% 88%, rgba(255,255,255,.09), transparent 60%),
+      radial-gradient(720px 480px at 4% 4%,   rgba(255,255,255,.08), transparent 62%),
+      radial-gradient(560px 900px at 96% 62%, rgba(255,255,255,.10), transparent 62%),
+      radial-gradient(640px 520px at 30% 100%, rgba(61,220,132,.05), transparent 58%),
+      linear-gradient(180deg, #101318 0%, #0b0d10 45%, #0e1116 100%);
+  }
+  .bgfx::before {
+    content: ""; position: absolute; inset: -20%;
+    background:
+      linear-gradient(115deg, transparent 38%, rgba(255,255,255,.07) 50%, transparent 62%),
+      linear-gradient(65deg,  transparent 56%, rgba(255,255,255,.05) 66%, transparent 76%);
+    filter: blur(34px);
+  }
+  .bgfx::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    background-size: 220px 220px;
+  }
+  .page-content { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 50; height: 64px; background: rgba(11,13,16,.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+  nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+  .brand .bname { font-weight: 800; font-size: 14.5px; letter-spacing: .01em; line-height: 1.25; }
+  .brand .bname span { color: var(--accent); }
+  .brand .bsub { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: .02em; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-cta { font-size: 14px; font-weight: 700; text-decoration: none; color: #0b0d10; background: var(--accent); padding: 9px 18px; border-radius: 999px; border: none; cursor: pointer; font-family: var(--font-sans); transition: transform .2s cubic-bezier(.16,1,.3,1), opacity .2s; white-space: nowrap; }
+  .nav-cta:hover { opacity: .9; }
+  .nav-cta:active { transform: scale(.97); }
+  .nav-pdf { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; color: var(--text-2); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 15px; transition: color .2s, border-color .2s; }
+  .nav-pdf:hover { color: var(--text); border-color: var(--accent-line); }
+
+  /* HERO */
+  .hero { padding: 72px 0 64px; border-bottom: 1px solid var(--line); }
+  .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: end; }
+  .hero h1 { font-size: clamp(34px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -.03em; font-weight: 800; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.sub { margin-top: 20px; font-size: 17px; color: var(--text-2); max-width: 50ch; }
+  .hero-side .since { font-size: 14px; color: var(--text-3); margin-bottom: 10px; }
+  .hero-side .platforms { font-size: 15px; color: var(--text-2); line-height: 1.9; }
+  .hero-side .platforms strong { color: var(--text); font-weight: 700; }
+
+  .stats { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .stat { padding: 26px 28px; border-left: 1px solid var(--line); }
+  .stat:first-child { border-left: none; }
+  .stat .v { font-family: var(--font-mono); font-size: clamp(22px, 2.2vw, 31px); font-weight: 700; letter-spacing: -.02em; }
+  .stat .v b { color: var(--accent); font-weight: 700; }
+  .stat .l { margin-top: 6px; font-size: 13.5px; color: var(--text-2); }
+
+  section { padding: 76px 0; }
+  .sec-head { margin-bottom: 36px; }
+  .sec-head h2 { font-size: clamp(26px, 3vw, 36px); letter-spacing: -.02em; font-weight: 800; line-height: 1.15; }
+  .sec-head p { margin-top: 10px; color: var(--text-2); max-width: 64ch; }
+
+  /* BLOCKS */
+  .blocks { display: flex; flex-direction: column; gap: 16px; }
+  .block { background: var(--glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .25s; }
+  .block:hover { border-color: var(--line-strong); }
+  .block.open { border-color: var(--accent-line); background: var(--glass-2); }
+  .block-head { width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: var(--text); font-family: var(--font-sans); padding: 24px 26px; display: grid; grid-template-columns: 1fr auto auto; gap: 20px; align-items: center; }
+  .bh-title h3 { font-size: 19px; font-weight: 800; letter-spacing: -.01em; }
+  .bh-title .niche { margin-top: 3px; font-size: 13.5px; color: var(--text-2); }
+  .bh-title .period { margin-top: 4px; font-size: 12px; font-family: var(--font-mono); font-weight: 700; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-line); border-radius: 999px; padding: 2px 10px; display: inline-block; }
+  .bh-kpis { display: flex; gap: 26px; }
+  .bh-kpi .v { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .bh-kpi .v.acc { color: var(--accent); }
+  .bh-kpi .l { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+  .chev { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .25s, background .25s; flex-shrink: 0; }
+  .chev svg { width: 14px; height: 14px; stroke: var(--text-2); }
+  .block.open .chev { transform: rotate(180deg); border-color: var(--accent-line); background: var(--accent-dim); }
+  .block.open .chev svg { stroke: var(--accent); }
+
+  .detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.16,1,.3,1); }
+  .detail > .detail-inner { overflow: hidden; }
+  .block.open .detail { grid-template-rows: 1fr; }
+  .detail-body { padding: 4px 26px 28px; border-top: 1px solid var(--line); }
+  .detail-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-top: 22px; }
+  .dc h4 { font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+  .dc ul { list-style: none; }
+  .dc li { font-size: 14.5px; color: var(--text-2); padding: 7px 0 7px 18px; position: relative; }
+  .dc li::before { content: ""; position: absolute; left: 0; top: 15px; width: 7px; height: 1.5px; background: var(--accent); }
+  .dc li strong { color: var(--text); font-weight: 700; }
+  .detail-chart { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .detail-chart svg { width: 100%; max-width: 640px; height: auto; display: block; }
+  .chart-cap { font-size: 12.5px; color: var(--text-3); margin-top: 8px; }
+
+  /* chart draw-in on open */
+  .gline { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1) .15s; }
+  .block.open .gline { stroke-dashoffset: 0; }
+  .gbar { transform: scaleY(0); transform-origin: bottom; transition: transform .9s cubic-bezier(.16,1,.3,1); }
+  .block.open .gbar { transform: scaleY(1); }
+  .gbar:nth-of-type(2) { transition-delay: .06s } .gbar:nth-of-type(3) { transition-delay: .12s } .gbar:nth-of-type(4) { transition-delay: .18s }
+  .gdot { opacity: 0; transition: opacity .5s ease 1.3s; }
+  .block.open .gdot { opacity: 1; }
+
+  /* APPROACH */
+  .approach-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; }
+  .ap { padding: 24px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; }
+  .ap:last-child { border-bottom: 1px solid var(--line); }
+  .ap .n { font-family: var(--font-mono); font-size: 15px; color: var(--accent); padding-top: 3px; }
+  .ap h4 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+  .ap p { font-size: 15px; color: var(--text-2); }
+
+  /* STACK */
+  .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .sk { border-top: 2px solid var(--accent-line); padding-top: 14px; }
+  .sk .k { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 8px; }
+  .sk .w { font-size: 14.5px; color: var(--text); font-weight: 600; line-height: 1.7; }
+  .sk .w em { font-style: normal; color: var(--text-2); font-weight: 500; }
+
+  /* FOOTER */
+  .foot { padding: 90px 0 64px; border-top: 1px solid var(--line); }
+  .foot-inner { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: center; }
+  .foot h2 { font-size: clamp(28px, 3.4vw, 42px); letter-spacing: -.025em; font-weight: 800; line-height: 1.1; }
+  .foot p { margin-top: 14px; color: var(--text-2); max-width: 46ch; }
+  .foot-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .btn-main { font-size: 16px; font-weight: 800; text-decoration: none; font-family: var(--font-sans); border: none; cursor: pointer; color: #0b0d10; background: var(--accent); padding: 15px 30px; border-radius: 999px; transition: transform .2s cubic-bezier(.16,1,.3,1), opacity .2s; }
+  .btn-main:hover { opacity: .9; }
+  .btn-main:active { transform: scale(.97); }
+  .btn-glass { position: relative; overflow: hidden; display: inline-block; font-size: 15px; font-weight: 700; text-decoration: none; color: var(--text); background: rgba(255,255,255,.06); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line-strong); padding: 14px 26px; border-radius: 999px; transition: border-color .25s, transform .2s cubic-bezier(.16,1,.3,1), background .25s; }
+  .btn-glass::before { content: ""; position: absolute; top: 0; left: -80%; width: 55%; height: 100%; background: linear-gradient(105deg, transparent, rgba(255,255,255,.22), transparent); transform: skewX(-20deg); transition: left .65s cubic-bezier(.16,1,.3,1); }
+  .btn-glass:hover { border-color: var(--accent-line); background: rgba(255,255,255,.09); }
+  .btn-glass:hover::before { left: 125%; }
+  .btn-glass:active { transform: scale(.96); }
+
+  /* MODAL */
+  .modal-bg { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(5,6,8,.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .modal-bg.show { opacity: 1; pointer-events: auto; }
+  .modal { width: min(420px, calc(100vw - 48px)); background: rgba(22,26,32,.92); border: 1px solid var(--line-strong); border-radius: 22px; padding: 34px; transform: translateY(18px) scale(.96); transition: transform .4s cubic-bezier(.16,1,.3,1); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 80px rgba(0,0,0,.5); }
+  .modal-bg.show .modal { transform: none; }
+  .modal h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .modal .mp { font-size: 14px; color: var(--text-2); margin-bottom: 22px; }
+  .contact-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 18px; margin-top: 10px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.04); text-decoration: none; transition: border-color .25s, background .25s; }
+  .contact-row:hover { border-color: var(--accent-line); background: rgba(61,220,132,.07); }
+  .contact-row .cl { font-size: 13px; color: var(--text-3); }
+  .contact-row .cv { font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--text); }
+  .modal-close { margin-top: 22px; width: 100%; font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: var(--text-2); background: none; cursor: pointer; border: 1px solid var(--line); border-radius: 999px; padding: 11px; transition: color .2s, border-color .2s; }
+  .modal-close:hover { color: var(--text); border-color: var(--line-strong); }
+  .copyright { margin-top: 60px; font-size: 13px; color: var(--text-3); max-width: 78ch; }
+
+  .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+    .detail, .chev, .nav-cta, .btn-main, .block, .gline, .gbar, .gdot { transition: none; }
+    .gline { stroke-dashoffset: 0; } .gbar { transform: none; } .gdot { opacity: 1; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .approach-grid, .foot-inner { grid-template-columns: 1fr; gap: 32px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(3) { border-left: none; }
+    .stat { border-top: 1px solid var(--line); }
+    .stat:nth-child(-n+2) { border-top: none; }
+    .block-head { grid-template-columns: 1fr auto; }
+    .bh-kpis { display: none; }
+    .detail-cols, .stack-grid { grid-template-columns: 1fr; gap: 20px; }
+    section { padding: 52px 0; }
+    .hero { padding: 48px 0; }
+    .nav-pdf { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="bgfx"></div>
+<div class="page-content">
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <div class="bname">Kanstantsin Sidarovich <span>/</span> User Acquisition</div>
+      <div class="bsub">Subscription apps &middot; iOS + Android</div>
+    </div>
+    <div class="nav-right">
+      <a class="nav-pdf" href="Kanstantsin_Sidarovich_UA_Manager_2026.pdf" target="_blank" rel="noopener">CV &darr;</a>
+      <button class="nav-cta js-contact">Contact me</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>I acquire users for <em>subscription apps</em></h1>
+        <p class="sub">5 years of mobile-first user acquisition across Google App Campaigns, Apple Search Ads, Meta and TikTok. I run accounts to <strong>cohort payback and LTV-derived targets</strong> — not to install volume.</p>
+      </div>
+      <div class="hero-side">
+        <div class="since">Currently open to remote roles &mdash; Ukraine / EU</div>
+        <div class="platforms">
+          Channels: <strong>App Campaigns &middot; Apple Search Ads &middot; Meta &middot; TikTok</strong><br>
+          Attribution: <strong>Singular &middot; AppsFlyer &middot; Firebase &middot; SKAN</strong><br>
+          Funnels: <strong>app-install &middot; web2app &middot; web2web</strong><br>
+          Markets: <strong>12+ GEOs, Tier-1 and Tier-2</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v num"><b><span data-count="5">5</span></b> years</div><div class="l">in mobile user acquisition</div></div>
+      <div class="stat"><div class="v num">$<b><span data-count="80">80</span></b>k/mo</div><div class="l">peak monthly UA budget owned</div></div>
+      <div class="stat"><div class="v num"><b><span data-count="30">30</span></b>k</div><div class="l">installs per month at scale</div></div>
+      <div class="stat"><div class="v num">day <b><span data-count="45">45</span></b></div><div class="l">cohort payback at peak spend</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2>Case studies</h2>
+      <p>Three subscription products, three different acquisition problems. Client names are given where there is no restriction; figures come from ad accounts and MMP dashboards. Click a project to open it.</p>
+    </div>
+
+    <div class="blocks">
+
+      <!-- GLITE -->
+      <div class="block rv">
+        <button class="block-head" aria-expanded="false">
+          <div class="bh-title">
+            <h3>Glite &mdash; subscription learning app</h3>
+            <div class="niche">iOS + web2app &middot; sole buyer on the project &middot; $50&ndash;80k / month</div>
+            <div class="period">Nov 2024 &mdash; Sep 2026</div>
+          </div>
+          <div class="bh-kpis">
+            <div class="bh-kpi"><div class="v acc">4x</div><div class="l">funnel scale</div></div>
+            <div class="bh-kpi"><div class="v">$2.3&ndash;4.7</div><div class="l">app CPI</div></div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        </button>
+        <div class="detail"><div class="detail-inner"><div class="detail-body">
+          <div class="detail-cols">
+            <div class="dc">
+              <h4>The problem</h4>
+              <ul>
+                <li>One buyer, one product, three acquisition paths that all competed for the same budget</li>
+                <li>The web2app quiz funnel worked but sat at a small spend level for months</li>
+                <li>No MMP on the project &mdash; measurement had to be built in-house and had to hold up</li>
+                <li>Later: an iOS app existed with <strong>no app-install channel at all</strong></li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>What I did</h4>
+              <ul>
+                <li>Ran <strong>Apple Search Ads</strong> as the core iOS channel: brand, category, competitor and discovery, mining broad search terms into exact, with Custom Product Pages per keyword theme</li>
+                <li>Scaled the <strong>web2app quiz funnel</strong> on non-brand Search and Performance Max, localized into DE, PL, TR and more</li>
+                <li>Launched <strong>iOS App Campaigns from zero</strong> across 12+ GEOs with a full event ladder: install &rarr; trial &rarr; paywall &rarr; purchase</li>
+                <li>Set <strong>target CPA from LTV per GEO</strong>, then moved budget between the three paths by payback speed</li>
+                <li>Built measurement myself: Firebase events into Google Ads, Apple Ads Attribution API and SKAN, cohort tables in BI</li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>Results</h4>
+              <ul>
+                <li>Web2app funnel scaled <strong>4x, from ~$6k to ~$28k per month</strong>, holding target cost per trial</li>
+                <li>App Campaigns reached <strong>CPI $2.3&ndash;4.7</strong> and cost per trial $6.5&ndash;14 within the first GEO wave</li>
+                <li>Apple Search Ads delivered <strong>~30% of all iOS installs</strong> at blended CPI $4&ndash;6, with stronger retention than App Campaigns</li>
+                <li>Trial-to-paid held at <strong>30&ndash;40%</strong> through the entire scale-up</li>
+              </ul>
+            </div>
+          </div>
+          <div class="detail-chart">
+            <svg viewBox="0 0 520 142" role="img" aria-label="Monthly web2app spend growing from 6 thousand to 28 thousand dollars">
+              <line x1="0" y1="118" x2="520" y2="118" stroke="rgba(255,255,255,.12)"/>
+              <rect class="gbar" x="30"  y="99" width="64" height="19" rx="4" fill="rgba(255,255,255,.16)"/>
+              <rect class="gbar" x="150" y="83" width="64" height="35" rx="4" fill="rgba(61,220,132,.35)"/>
+              <rect class="gbar" x="270" y="65" width="64" height="53" rx="4" fill="rgba(61,220,132,.55)"/>
+              <rect class="gbar" x="390" y="30" width="64" height="88" rx="4" fill="#3ddc84"/>
+              <text x="62"  y="93" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono, monospace" font-size="13">$6k</text>
+              <text x="182" y="77" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono, monospace" font-size="13">$11k</text>
+              <text x="302" y="59" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono, monospace" font-size="13">$17k</text>
+              <text x="422" y="24" text-anchor="middle" fill="#3ddc84" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">$28k</text>
+              <text x="62"  y="136" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">start</text>
+              <text x="182" y="136" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">+3 mo</text>
+              <text x="302" y="136" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">+6 mo</text>
+              <text x="422" y="136" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">Sep 2025</text>
+            </svg>
+            <div class="chart-cap">Monthly web2app spend through the scale-up &mdash; cost per trial held at target throughout</div>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- PLANTIN -->
+      <div class="block rv">
+        <button class="block-head" aria-expanded="false">
+          <div class="bh-title">
+            <h3>PlantIn &mdash; plant identification app (Genesis)</h3>
+            <div class="niche">iOS + Android &middot; 35M+ downloads &middot; up to $80k / month</div>
+            <div class="period">Dec 2023 &mdash; Sep 2024</div>
+          </div>
+          <div class="bh-kpis">
+            <div class="bh-kpi"><div class="v acc">~30k</div><div class="l">installs / month</div></div>
+            <div class="bh-kpi"><div class="v">0.9</div><div class="l">D30 ROAS</div></div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        </button>
+        <div class="detail"><div class="detail-inner"><div class="detail-body">
+          <div class="detail-cols">
+            <div class="dc">
+              <h4>The problem</h4>
+              <ul>
+                <li>A market-leading app at real scale: four channels, two platforms, one blended number to defend</li>
+                <li>Install volume was easy to buy &mdash; <strong>install quality was not</strong></li>
+                <li>iOS ATT and SKAN meant campaign-level attribution could not be trusted on its own</li>
+                <li>Two junior buyers on the team needed a system they could run day to day</li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>What I did</h4>
+              <ul>
+                <li>Owned <strong>Google App Campaigns, Apple Search Ads, Meta and TikTok app-install</strong> across iOS and Android</li>
+                <li>Ran the account to <strong>cohort economics</strong>: every channel judged on D7 / D30 ROAS and payback, never on CPI alone</li>
+                <li>Owned attribution in <strong>Singular</strong> plus Firebase, keeping event definitions identical across four channels</li>
+                <li>Worked around ATT/SKAN with in-app signal and aggregated cohort reads instead of campaign-level numbers</li>
+                <li>Split the work with two junior buyers: strategy, bidding and cohorts mine, creative rotation and monitoring theirs</li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>Results</h4>
+              <ul>
+                <li><strong>~30k installs per month</strong> at a blended CPI of ~$2.5 (iOS ~$4 / Android ~$1.5)</li>
+                <li><strong>Trial-to-paid ~38%</strong> held while budget scaled toward $80k/month</li>
+                <li><strong>D7 ROAS ~0.5, D30 ROAS ~0.9</strong>, cohort payback around <strong>day 45</strong></li>
+                <li>Budget reallocation driven by cohort curves &mdash; channels that bought cheap, non-paying installs were cut early</li>
+              </ul>
+            </div>
+          </div>
+          <div class="detail-chart">
+            <svg viewBox="0 0 520 168" role="img" aria-label="Cohort payback curve reaching breakeven around day 45">
+              <line x1="30" y1="140" x2="500" y2="140" stroke="rgba(255,255,255,.12)"/>
+              <line x1="30" y1="40" x2="500" y2="40" stroke="rgba(61,220,132,.35)" stroke-dasharray="4 5"/>
+              <text x="36" y="33" text-anchor="start" fill="#3ddc84" font-family="JetBrains Mono, monospace" font-size="11">breakeven &mdash; ROAS 1.0</text>
+              <polyline class="gline" pathLength="1" points="30,140 84,90 137,75 260,50 375,40 490,25" fill="none" stroke="#3ddc84" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle class="gdot" cx="375" cy="40" r="5" fill="#3ddc84"/>
+              <text x="84"  y="82" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono, monospace" font-size="12">0.5</text>
+              <text x="260" y="42" text-anchor="middle" fill="#e9ebee" font-family="JetBrains Mono, monospace" font-size="12">0.9</text>
+              <text x="30"  y="158" text-anchor="start"  fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">D0</text>
+              <text x="84"  y="158" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">D7</text>
+              <text x="260" y="158" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">D30</text>
+              <text x="375" y="158" text-anchor="middle" fill="#3ddc84" font-family="Manrope, sans-serif" font-size="11" font-weight="700">D45</text>
+              <text x="490" y="158" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">D60</text>
+            </svg>
+            <div class="chart-cap">Cohort revenue against acquisition cost &mdash; the curve that decided budget, not the install count</div>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- FINTECH -->
+      <div class="block rv">
+        <button class="block-head" aria-expanded="false">
+          <div class="bh-title">
+            <h3>Fintech subscription funnel</h3>
+            <div class="niche">web2web &middot; name under NDA &middot; ~$50k / month &middot; UA, PL, RO, UK</div>
+            <div class="period">Jan 2022 &mdash; Oct 2023</div>
+          </div>
+          <div class="bh-kpis">
+            <div class="bh-kpi"><div class="v acc">45%</div><div class="l">trial &rarr; paid</div></div>
+            <div class="bh-kpi"><div class="v">~$125</div><div class="l">LTV</div></div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        </button>
+        <div class="detail"><div class="detail-inner"><div class="detail-body">
+          <div class="detail-cols">
+            <div class="dc">
+              <h4>The problem</h4>
+              <ul>
+                <li>A paid trial funnel where the real money arrives weeks after the click &mdash; the ad platform sees almost none of it</li>
+                <li>Four markets with different payment behaviour behind one blended CPA</li>
+                <li>Optimizing to the trial alone rewards traffic that never rebills</li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>What I did</h4>
+              <ul>
+                <li>Ran Google <strong>Search, Performance Max and Demand Gen plus Apple Search Ads</strong> across Ukraine, Poland, Romania and the UK</li>
+                <li>Helped implement <strong>click &rarr; trial &rarr; rebill tracking</strong> via server postbacks and offline conversion import</li>
+                <li>Excluded view-through conversions from decision-making entirely</li>
+                <li>Read the funnel <strong>past the trial</strong> every week: rebill rate, decline rate, revenue per cohort</li>
+              </ul>
+            </div>
+            <div class="dc">
+              <h4>Results</h4>
+              <ul>
+                <li>A <strong>$2 five-day trial into a $49/month subscription</strong> at ~45% trial-to-paid, ~$20 CPA per trial and ~$125 LTV</li>
+                <li>Caught a hidden revenue leak: <strong>bank declines in two markets cut trial-to-paid from 45% to ~25%</strong> while every ad metric looked healthy</li>
+                <li>Affected GEOs were capped and <strong>decline rate became a standing line in weekly reporting</strong></li>
+                <li>Grew from supporting campaigns into owning markets and running my own optimization tests</li>
+              </ul>
+            </div>
+          </div>
+          <div class="detail-chart">
+            <svg viewBox="0 0 520 128" role="img" aria-label="Trial to paid rate in the affected markets: 45 percent, dropping to 25 percent, back to 45 percent after capping">
+              <line x1="0" y1="104" x2="520" y2="104" stroke="rgba(255,255,255,.12)"/>
+              <rect class="gbar" x="40"  y="20" width="86" height="84" rx="4" fill="rgba(61,220,132,.5)"/>
+              <rect class="gbar" x="217" y="57" width="86" height="47" rx="4" fill="rgba(255,255,255,.18)"/>
+              <rect class="gbar" x="394" y="20" width="86" height="84" rx="4" fill="#3ddc84"/>
+              <text x="83"  y="12" text-anchor="middle" dominant-baseline="hanging" fill="#e9ebee" font-family="JetBrains Mono, monospace" font-size="13">45%</text>
+              <text x="260" y="49" text-anchor="middle" fill="#a2aab4" font-family="JetBrains Mono, monospace" font-size="13">25%</text>
+              <text x="437" y="12" text-anchor="middle" dominant-baseline="hanging" fill="#3ddc84" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">45%</text>
+              <text x="83"  y="120" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">normal</text>
+              <text x="260" y="120" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">declines, undetected</text>
+              <text x="437" y="120" text-anchor="middle" fill="#6f7781" font-family="Manrope, sans-serif" font-size="11">after capping</text>
+            </svg>
+            <div class="chart-cap">Trial-to-paid in the two affected markets &mdash; the drop was invisible in CPA and only showed up past the trial</div>
+          </div>
+        </div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="approach-grid">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <h2>How I run acquisition</h2>
+        <p>Subscription apps punish buyers who optimize what the platform shows them. These principles repeat across every account I have owned.</p>
+      </div>
+      <div>
+        <div class="ap rv"><div class="n">01</div><div><h4>Bid to LTV, not to installs</h4><p>Target CPA is derived from lifetime value per GEO, not set as one flat number. A $2 install in a market that never rebills is more expensive than a $6 install in one that does.</p></div></div>
+        <div class="ap rv"><div class="n">02</div><div><h4>The event ladder is the product</h4><p>Install &rarr; trial &rarr; paywall &rarr; purchase, wired correctly and identically across every channel. Most scaling problems in app UA are measurement problems wearing a costume.</p></div></div>
+        <div class="ap rv"><div class="n">03</div><div><h4>Attribution I can defend</h4><p>Singular, AppsFlyer, Firebase, SKAN &mdash; whatever the stack, the standard is the same: I can explain where a number comes from and where it stops being reliable. View-through never drives a decision.</p></div></div>
+        <div class="ap rv"><div class="n">04</div><div><h4>Read the funnel past the click</h4><p>Rebill rate, decline rate, refunds. The most expensive problem I ever found was invisible in every ad metric and only appeared two steps after the conversion the platform reports.</p></div></div>
+        <div class="ap rv"><div class="n">05</div><div><h4>Creative is a system, not a task</h4><p>Hook-first concepts briefed against install-to-trial and trial-to-paid, iterated in volume with the creative team. CTR is a symptom, not a goal.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Stack</h2></div>
+    <div class="stack-grid rv">
+      <div class="sk"><div class="k">UA channels</div><div class="w">Google App Campaigns &middot; Apple Search Ads &middot; Meta app-install &amp; web2app &middot; TikTok app-install &middot; Demand Gen, Performance Max, Search <em>&mdash; app-install, web2app and web2web funnels</em></div></div>
+      <div class="sk"><div class="k">Attribution &amp; analytics</div><div class="w">Singular &middot; AppsFlyer &middot; Firebase &middot; Apple Ads Attribution API &middot; SKAdNetwork / ATT &middot; server postbacks &amp; offline conversion import &middot; Keitaro &middot; Metabase &middot; GA4 <em>&mdash; cohort and LTV analysis</em></div></div>
+      <div class="sk"><div class="k">Growth &amp; economics</div><div class="w">Target CPA/ROAS from LTV per GEO &middot; D7 / D30 ROAS &middot; cohort payback windows &middot; trial-to-paid optimization &middot; subscription funnel economics <em>&mdash; multi-GEO scaling across Tier-1 and Tier-2</em></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="rv">
+        <h2>Looking for a UA manager who bids to LTV?</h2>
+        <p>Every number on this page comes from real ad accounts and MMP dashboards. Happy to walk through the structure, the cohorts and the decisions behind any of them.</p>
+      </div>
+      <div class="foot-actions rv">
+        <button class="btn-main js-contact">Contact me</button>
+        <a class="btn-glass" href="Kanstantsin_Sidarovich_UA_Manager_2026.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+      </div>
+    </div>
+    <div class="copyright">Kanstantsin Sidarovich &mdash; User Acquisition Manager, subscription apps. Client names are disclosed only where there is no restriction; all other projects are described without naming the company.</div>
+  </div>
+</footer>
+
+</div>
+
+<div class="modal-bg" id="contactModal">
+  <div class="modal">
+    <h3>Let's talk</h3>
+    <div class="mp">Fastest on Telegram. Open to remote roles in Ukraine and the EU.</div>
+    <a class="contact-row" href="https://t.me/carlm_ont" target="_blank" rel="noopener"><span class="cl">Telegram</span><span class="cv">@carlm_ont</span></a>
+    <a class="contact-row" href="tel:+380971830779"><span class="cl">Phone</span><span class="cv">+380 97 183 0779</span></a>
+    <a class="contact-row" href="mailto:citizel3@gmail.com"><span class="cl">Email</span><span class="cv">citizel3@gmail.com</span></a>
+    <button class="modal-close">Close</button>
+  </div>
+</div>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const modal = document.getElementById("contactModal");
+  const openModal = () => modal.classList.add("show");
+  const closeModal = () => modal.classList.remove("show");
+  document.querySelectorAll(".js-contact").forEach(b => b.addEventListener("click", openModal));
+  modal.querySelector(".modal-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+  document.querySelectorAll(".block-head").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const block = btn.closest(".block");
+      const open = block.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
+  function countUp(el) {
+    const target = parseFloat(el.dataset.count);
+    const finish = () => { el.textContent = target; };
+    if (reduce || document.hidden) { finish(); return; }
+    const dur = 1100, t0 = performance.now();
+    // hard fallback: rAF is throttled in background tabs, never leave a partial number on screen
+    const guard = setTimeout(finish, dur + 400);
+    function tick(t) {
+      const p = Math.min((t - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) { requestAnimationFrame(tick); } else { clearTimeout(guard); finish(); }
+    }
+    requestAnimationFrame(tick);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) document.querySelectorAll("[data-count]").forEach(el => { el.textContent = el.dataset.count; });
+  });
+  const statsIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.querySelectorAll("[data-count]").forEach(countUp); statsIo.unobserve(e.target); }
+    }
+  }, { threshold: 0.4 });
+  const statsEl = document.querySelector(".stats");
+  if (statsEl) statsIo.observe(statsEl);
+</script>
+</body>
+</html>
